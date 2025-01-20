@@ -1,0 +1,9 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '--target', 'production', '-t', 'gcr.io/$PROJECT_ID/my-app:$COMMIT_SHA', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/my-app:$COMMIT_SHA']
+  - name: 'gcr.io/cloud-builders/kubectl'
+    args: ['set', 'image', 'deployment/my-app-deployment', 'my-app-gcr.io/$PROJECT_ID/my-app:$COMMIT_SHA']
+
+

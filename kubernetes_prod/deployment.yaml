@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-deployment
+spec:
+  replicas: 3 #Number of pod replicas
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+        - name: my-app
+          image: gcr.io/project_id/my-app:latest # use my image
+          ports:
+            - containerPort: 8000
+          envFrom: # Load environment variables from a ConfigMap or Secret (recommended)
+            - configMapRef:
+                name: my-app-config
+            - secretRef:
+                name: my-app-secrets
+          resources:
+            requests:
+              cpu: 100m
+              memory: 200Mi
+            limits:
+              cpu: 200m
+              memory: 400Mi

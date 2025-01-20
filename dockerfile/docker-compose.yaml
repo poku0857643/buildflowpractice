@@ -1,0 +1,28 @@
+version: "3.11"
+
+services:
+  web:
+    build:
+      context: .
+      target: development # build the development stage
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app # Mount my project directory for code changes ro take effect immediately
+    environment:
+      ENVIRONMENT: development #Set environment variable
+      # ADD other environment variables for development here
+
+      DATABASE_URL: "postgresql://user:password@localhost:5432/dev_db"
+    depends_on: # If i have other services (like a database)
+      # - database
+
+# Another services example (like a database)
+#  database:
+#    image: postgres:14
+#    environment:
+#      POSTGRES_USER: user
+#      POSTGRES_PASSWORD: password
+#      POSTGRES_DB: dev_db
+#    ports:
+#      - "5432:5432"

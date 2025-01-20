@@ -1,0 +1,29 @@
+data:
+  raw_path: "data/data_raw.csv"
+  processed_path: "processed_data/processed_data.csv"
+  test_size: 0.2 # for train-test split
+  features:
+    numerical: ["uOpen", "uClose", "uHigh"]
+    categorical: ["category1", "category2"]
+
+model:
+  type: "logistic_regression"
+  save_path: "models/trained_model.joblib"
+  hyperparameters:
+    C: 1.0 # regularization strength (example)
+    solver: "liblinear"
+    metrics: ['accuracy','precision','recall','f1']
+
+training:
+  random_seed: 42
+  epochs: 100
+  batch_size: 32
+
+preprocessing:
+  missing_value_strategy: "fillna" # fillna, dropna, or other
+  fillna_value: 0
+  scaling_method: "standard" # standard, minmax, robust
+
+logging:
+  level: "INFO" # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
